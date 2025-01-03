@@ -1,6 +1,6 @@
 "use server"
 
-export const sendDiscordMessage = async (formData) => {
+export const sendDiscordMessage = async (prevState,formData) => {
     try {
         const rawFormEntries = Object.fromEntries(formData)
         console.log(rawFormEntries)
@@ -32,8 +32,15 @@ export const sendDiscordMessage = async (formData) => {
               ],
             }),
           });
+
+        return { success: true,
+            message: "Message sent successfully",
+         }
         
     } catch (error) {
         console.error(error.message)
+        return { success: false,
+            message: `Something went wrong ${error.message}`,
+         }
     }
 }
